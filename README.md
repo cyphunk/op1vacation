@@ -28,7 +28,7 @@ details.
 Login to your Raspberry Pi and copy the ``sync.sh`` script and configure it to
 run as root upon each boot:
 
-    wget https://github.com/cyphunk/op1vacation/blob/master/sync.sh -O /home/pi/sync.sh
+    wget https://raw.githubusercontent.com/cyphunk/op1vacation/master/sync.sh -O /home/pi/sync.sh
     sudo su
     echo "/home/pi/sync.sh &" >> /etc/rc.local
 
