@@ -42,8 +42,8 @@ On linux systems executing ``sync.sh`` and connecting a OP-1 should also work.
 ### Use 3rd FAT partition
 
 New files can be access on the SD card by placing the SD card into a reader on
-a Linux system. However, if you ad a 3rd fat partition to the Raspberry Pi SD
-card you can also access the files in OSX systems. To fascilitate this option
+a Linux system. However, if you add a 3rd fat partition to the Raspberry Pi SD
+card you can also access the files in OSX systems. To facilitate this option
 the script will copy all new OP1 files to the 3rd partition if it exists.
 
 ### Run action after copy
