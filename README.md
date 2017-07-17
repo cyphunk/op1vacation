@@ -1,6 +1,6 @@
 # OP1vacation
 
-![marx was right](./marxwasright.jpg)
+![marx was right](./.marxwasright.jpg)
 
 This is just a simple script to copy new album tracks, samples, files from
 Teenage Engineering's OP-1 over to a Raspberry Pi Zero. Motivation was to have a
