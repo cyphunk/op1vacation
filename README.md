@@ -16,8 +16,8 @@ own risk**
 
 Connect USB battery to Raspberry Pi, setup OP-1 into disk mode and connect it
 to the USB of the Raspberry Pi. New files will be copied from OP-1 to SD card of
-Raspberry Pi into a directory named ``"YYMMDD_HHMMSS"``. Copy could take up to
-4 minutes.
+Raspberry Pi into a directory based on the date set on the OP-1 using the format
+``"YYMMDD_HHMMSS"``. Copy could take up to 4 minutes.
 
 When copy is complete the **end copy** ACT LED sequence will loop. See code for
 details.
@@ -49,8 +49,8 @@ the script will copy all new OP1 files to the 3rd partition if it exists.
 ### Run action after copy
 
 If the ``afterallcopied.sh`` script is found it will be run after files have
-been copied. The current script attempts to transcode new album tracks into
-mp3's.
+been copied. The current script attempts to remove silence at end of albums and
+tapes to reduce size, and then transcodes new album tracks into mp3's.
 
 
 ## License
