@@ -5,9 +5,6 @@
 # cd to directory of this script
 cd $(dirname $BASH_SOURCE)
 
-# each copy will put changed files into sync/$date
-date=$(date +%Y%m%d_%H%M%S)
-echo $date
 test -e sync || mkdir sync
 
 # If available run following script after all files copied and op1 unmounted
@@ -139,12 +136,33 @@ while [ 1 ]; do
     sudo mount $dev /tmp/usb || break
     indicate_mounted
 
+    # Get the $date of the latest file to use as our destination directory
+    for file in $(cd /tmp/usb && find . -type f); do
+        modifiedtime=$(stat -t /tmp/usb/$file | awk '{print $13}')
+        #echo $file $modifiedtime
+        #stat --format=%y /tmp/usb/$file 
+        if [[ "$modifiedtime" -gt "$latest" ]]; then
+            latest=$modifiedtime
+            date=$(date +%Y%m%d_%H%M%S -r /tmp/usb/$file)
+        fi
+    done
+    # make the destination $date directory
+    # handle odd case where files have changed but dates not?
+    while [ 1 ]; do
+        # if dir doesn't exist, keep this date path and exit loop
+        test -e sync/$date || break
+        # if dir did exist append a _N to the date path and check again
+        i=$(($i+1))
+        date="${date}_$i"
+    done
+    echo desitation date $date
+
     IFS=$'\n'
     COPIED=0
     for file in $(cd /tmp/usb && find . -type f); do
         echo $file
         if [ ! -e mirror/$file ]; then
-            echo $file doesnt exist
+            echo mirror/$file doesnt exist
             COPY=1
         #elif [ mirror/$file -ot /tmp/usb/$file ]; then
         #    # echo file is newer
@@ -158,7 +176,7 @@ while [ 1 ]; do
         # as swifly as cksum, so lets just do that for every file?
         #elif [ "`cd /tmp/usb && cksum $file`" != "`cd mirror && cksum $file`" ]; then
         elif [ "`cd /tmp/usb && md5sum $file`" != "`cd mirror && md5sum $file`" ]; then
-            echo $file hash differ
+            echo $file hashes differ
             COPY=1
         else
             COPY=0
