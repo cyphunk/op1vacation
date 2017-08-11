@@ -176,7 +176,7 @@ while [ 1 ]; do
         # as swifly as cksum, so lets just do that for every file?
         #elif [ "`cd /tmp/usb && cksum $file`" != "`cd mirror && cksum $file`" ]; then
         elif [ "`cd /tmp/usb && md5sum $file`" != "`cd mirror && md5sum $file`" ]; then
-            echo $file hashes differ (will copy file)
+            echo "$file hashes differ (will copy file)"
             COPY=1
         else
             COPY=0
