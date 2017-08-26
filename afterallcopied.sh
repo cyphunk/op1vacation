@@ -2,8 +2,9 @@
 # script passed argument of the root directory for currently copied files
 # eg. 'sync/20170712_160423'
 
+ARTISTNAME="lowerbackpain" # used for mp3 metadata
 
-# current version requires ffmpeg or on raspberry pi avconv 
+# current version requires ffmpeg or on raspberry pi avconv
 command -v avconv && CMD=avconv
 command -v ffmpeg && CMD=ffmpeg
 if [ "$CMD" == "" ]; then
@@ -24,5 +25,5 @@ done
 # TRANSCODE album's to mp3
 for file in `ls $1/album/*.aif`; do
     echo "convert $file to mp3"
-    $CMD -loglevel panic -i $file -b:a 320k ${file%.*}.mp3
+    $CMD -loglevel panic -i $file -metadata artist="$ARTISTNAME" -b:a 320k ${file%.*}.mp3
 done
